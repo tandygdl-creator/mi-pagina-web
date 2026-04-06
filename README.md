@@ -1,720 +1,485 @@
-[temp.html](https://github.com/user-attachments/files/26121434/temp.html)
+[temp.html](https://github.com/user-attachments/files/26519510/temp.html)
 <!DOCTYPE html>
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sorteo Oficial · Mundialito Command Center</title>
-    <!-- Google Fonts: estilo moderno y deportivo -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,600;14..32,700;14..32,800&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <title>Mario Quest: Mitos del Engagement</title>
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
+            user-select: none;
         }
 
         body {
-            background: linear-gradient(145deg, #2c0a0a 0%, #4d1212 100%); /* vino profundo */
-            color: #fff4e6;
             min-height: 100vh;
-            padding: 2rem 1.5rem;
+            background: linear-gradient(145deg, #0b2b2f 0%, #1a4a5f 100%);
+            font-family: 'Courier New', 'Press Start 2P', 'Segoe UI', monospace;
             display: flex;
-            flex-direction: column;
             align-items: center;
+            justify-content: center;
+            padding: 1rem;
         }
 
-        .container {
-            max-width: 1300px;
+        /* contenedor estilo consola */
+        .game-container {
+            max-width: 1000px;
             width: 100%;
-        }
-
-        /* Header con brillo dorado */
-        .title-section {
-            text-align: center;
-            margin-bottom: 1.5rem;
-        }
-
-        .title-section h1 {
-            font-size: 2.8rem;
-            font-weight: 800;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            background: linear-gradient(135deg, #f9e2a1 0%, #dbb45c 50%, #f9e2a1 100%);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 4px 15px rgba(212, 175, 55, 0.4);
-            margin-bottom: 0.5rem;
-        }
-
-        .title-section p {
-            color: #e6c27a;
-            font-size: 1.2rem;
-            font-weight: 600;
-            border-bottom: 2px solid #b88b3b;
-            display: inline-block;
-            padding-bottom: 6px;
-            margin-bottom: 1rem;
-        }
-
-        /* Barra informativa de fechas y sede */
-        .info-bar {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 2rem;
-            background: rgba(45, 15, 15, 0.85);
-            border: 2px solid #d4af37;
-            border-radius: 60px;
-            padding: 1rem 2rem;
-            margin: 1.5rem 0 2rem 0;
-            backdrop-filter: blur(4px);
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-        }
-
-        .info-bar span {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: #fadf8a;
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .info-bar span strong {
-            color: #ffffff;
-            font-weight: 800;
-            background: #a0522d;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
-            letter-spacing: 0.5px;
-            border: 1px solid #e4b84a;
-        }
-
-        /* tarjetas y elementos con temática copa */
-        .card {
-            background: rgba(45, 15, 15, 0.75);
-            backdrop-filter: blur(4px);
-            border: 1px solid #c9a24d;
+            background: #2c1a0e;
             border-radius: 2rem;
-            box-shadow: 0 20px 30px -10px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(212, 175, 55, 0.2) inset;
-            padding: 1.8rem 1.5rem;
+            border: 6px solid #f7b32b;
+            box-shadow: 0 20px 30px rgba(0,0,0,0.5), inset 0 1px 4px rgba(255,215,0,0.3);
+            overflow: hidden;
         }
 
-        .gold-text {
-            color: #f5d371;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-
-        /* Ruleta principal */
-        .roulette-panel {
+        /* escenario Mario */
+        .mario-stage {
+            background: #7ec8e0;
+            background-image: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 55%, #6b8c42 55%, #5a7a32 100%);
+            padding: 1rem;
+            min-height: 380px;
+            position: relative;
             display: flex;
             flex-direction: column;
             align-items: center;
-            margin-bottom: 3rem;
+            border-bottom: 4px solid #e2b13b;
         }
 
-        .wheel-display {
-            background: #1f0a0a;
-            border: 4px solid #d4af37;
-            border-radius: 80px;
-            padding: 1.2rem 3rem;
-            margin-bottom: 1.8rem;
-            box-shadow: 0 0 30px #e4b441;
-            width: fit-content;
-        }
-
-        #spinning-name {
-            font-size: 3.2rem;
-            font-weight: 800;
-            color: #fadf8a;
-            text-shadow: 0 0 8px #ffd966;
-            min-width: 360px;
-            text-align: center;
-            letter-spacing: 2px;
-            transition: transform 0.08s ease;
-        }
-
-        .spinning-active {
-            animation: pulse-gold 0.15s infinite alternate;
-        }
-
-        @keyframes pulse-gold {
-            0% { text-shadow: 0 0 5px #f1c40f; transform: scale(1); }
-            100% { text-shadow: 0 0 25px #f7dc6f; transform: scale(1.02); }
-        }
-
-        .button-group {
-            display: flex;
-            gap: 1.2rem;
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        .btn {
-            background: linear-gradient(145deg, #a67c2f, #7f621d);
-            border: none;
-            border-radius: 60px;
-            padding: 1rem 2.2rem;
-            font-size: 1.3rem;
-            font-weight: 700;
-            color: #231f1a;
-            text-transform: uppercase;
-            letter-spacing: 1.5px;
-            cursor: pointer;
-            box-shadow: 0 8px 0 #4a3a15, 0 10px 20px rgba(0,0,0,0.3);
-            transition: all 0.08s linear;
-            border: 1px solid #f5d371;
-        }
-
-        .btn:hover {
-            background: linear-gradient(145deg, #c79c3e, #9e7a2c);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 0 #4a3a15, 0 15px 25px black;
-        }
-
-        .btn:active {
-            transform: translateY(5px);
-            box-shadow: 0 3px 0 #4a3a15, 0 8px 15px black;
-        }
-
-        .btn:disabled {
-            opacity: 0.4;
-            transform: translateY(5px);
-            box-shadow: 0 3px 0 #4a3a15;
-            pointer-events: none;
-        }
-
-        .btn-gold {
-            background: linear-gradient(145deg, #e4b135, #b88927);
-            box-shadow: 0 8px 0 #7a5c1e, 0 10px 20px black;
-        }
-
-        /* Grupos */
-        .groups-section {
-            margin: 3rem 0;
-        }
-
-        .groups-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.8rem;
-            margin-top: 1.5rem;
-        }
-
-        .group-card {
-            background: rgba(35, 12, 12, 0.9);
-            border-radius: 1.8rem;
-            border: 2px solid #d4af37;
-            padding: 1.5rem 1rem;
-            text-align: center;
-            box-shadow: 0 15px 20px -8px black;
-        }
-
-        .group-title {
-            font-size: 2rem;
-            font-weight: 800;
-            color: #f5d371;
-            border-bottom: 3px solid #a98135;
-            padding-bottom: 0.6rem;
-            margin-bottom: 1.2rem;
-        }
-
-        .team-list {
-            list-style: none;
-            font-size: 1.2rem;
-            font-weight: 500;
-        }
-
-        .team-list li {
-            padding: 0.5rem 0;
-            border-bottom: 1px dashed #b68b40;
-            color: #fff0d2;
-        }
-
-        .team-list li:last-child {
-            border-bottom: none;
-        }
-
-        /* partidos */
-        .matches-section {
-            margin: 3rem 0;
-        }
-
-        .matches-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-        }
-
-        .group-matches {
-            background: #2d1313;
-            border-radius: 1.5rem;
-            padding: 1.5rem;
-            border-left: 8px solid #e0b354;
-        }
-
-        .group-matches h3 {
-            color: #fad571;
-            font-size: 1.6rem;
-            margin-bottom: 1rem;
-            border-bottom: 2px solid #b49450;
-            padding-bottom: 6px;
-        }
-
-        .match-item {
-            background: #411d1d;
-            margin: 0.7rem 0;
-            padding: 0.7rem;
-            border-radius: 2rem;
-            font-weight: 600;
+        .top-bar {
             display: flex;
             justify-content: space-between;
-            align-items: center;
-            border: 1px solid #bd9b4b;
-            color: #ffeec2;
-        }
-
-        .vs-badge {
-            background: #d4af37;
-            color: #2c0a0a;
-            font-weight: 800;
-            padding: 0.2rem 1rem;
-            border-radius: 40px;
+            width: 100%;
+            padding: 0.5rem;
+            background: #000000aa;
+            border-radius: 2rem;
+            margin-bottom: 1rem;
+            color: #ffef8f;
+            font-weight: bold;
             font-size: 0.9rem;
         }
 
-        /* fase final explicativa */
-        .knockout-section {
+        .mario-character {
+            background: #e52525;
+            width: 70px;
+            height: 70px;
+            border-radius: 20px 20px 10px 10px;
+            position: relative;
+            box-shadow: 0 6px 0 #8b0000;
             display: flex;
-            flex-wrap: wrap;
-            gap: 1.5rem;
+            align-items: center;
             justify-content: center;
-            margin-top: 3rem;
-        }
-
-        .knockout-card {
-            background: #321b1b;
-            border: 2px solid #e4b84a;
-            border-radius: 2rem;
-            padding: 1.8rem 2rem;
-            flex: 1 1 200px;
-            min-width: 220px;
-            text-align: center;
-            box-shadow: 0 15px 25px -10px #0a0000;
-        }
-
-        .knockout-card .emblem {
             font-size: 2.5rem;
-            margin-bottom: 0.5rem;
+            transition: transform 0.2s;
         }
 
-        .knockout-card h4 {
-            color: #ecc96a;
-            font-size: 1.7rem;
-            margin-bottom: 0.8rem;
-        }
-
-        .knockout-card p {
-            font-size: 1.2rem;
-            font-weight: 600;
-            line-height: 1.5;
-        }
-
-        .gold-rule {
-            color: #fad248;
-            font-weight: 800;
-        }
-
-        .footer-share {
-            margin-top: 3rem;
+        .path {
+            background: #c9a87b;
+            height: 50px;
+            width: 95%;
+            border-radius: 30px;
+            margin: 0.5rem 0;
             display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 0 10px;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .step-block {
+            width: 50px;
+            height: 50px;
+            background: #e3bc7c;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
             justify-content: center;
+            font-size: 1.5rem;
+            transition: 0.2s;
+            box-shadow: 0 4px 0 #8b6946;
+        }
+        .step-block.active {
+            background: #f5da6e;
+            box-shadow: 0 0 0 2px gold;
+            transform: scale(1.05);
+        }
+        .step-block.completed {
+            background: #f5da6e;
+            opacity: 0.7;
         }
 
-        #copyResultsBtn {
-            background: #b68d3c;
+        .question-modal {
+            background: #fff3e0;
+            border-radius: 2rem;
+            margin: 1rem;
+            padding: 1rem;
+            border: 4px solid #e6a017;
+            box-shadow: 0 10px 20px black;
+            width: 90%;
+        }
+
+        .question-text {
             font-size: 1.2rem;
-            padding: 0.8rem 2rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+            color: #2d3e2b;
+            text-align: center;
         }
 
-        .counter {
-            font-size: 1.2rem;
-            color: #ffdb9d;
-            margin-top: 0.8rem;
+        .options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin: 1rem 0;
         }
 
-        @media (max-width: 900px) {
-            .groups-grid, .matches-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-            .info-bar {
-                flex-direction: column;
-                align-items: center;
-                gap: 1rem;
-                border-radius: 40px;
-            }
+        .opt-btn {
+            background: #fedc83;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: 2rem;
+            font-weight: bold;
+            cursor: pointer;
+            font-family: monospace;
+            font-size: 1rem;
+            transition: 0.1s;
         }
-        @media (max-width: 600px) {
-            .groups-grid, .matches-grid {
-                grid-template-columns: 1fr;
-            }
+        .opt-btn:hover {
+            background: #f3b33d;
+            transform: scale(0.98);
+        }
+
+        .feedback {
+            background: #efe2ce;
+            padding: 0.6rem;
+            border-radius: 1rem;
+            margin: 0.5rem 0;
+            font-size: 0.8rem;
+        }
+
+        .next-btn {
+            background: #4c8b3c;
+            color: white;
+            border: none;
+            padding: 0.6rem;
+            border-radius: 3rem;
+            font-weight: bold;
+            width: 100%;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+        .next-btn:disabled {
+            opacity: 0.5;
+        }
+
+        .advance-btn {
+            background: #d48b2c;
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 2rem;
+            font-weight: bold;
+            color: white;
+            font-size: 1rem;
+            cursor: pointer;
+            margin-top: 0.5rem;
+            font-family: monospace;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            50% { transform: translateY(-12px); }
+            100% { transform: translateY(0); }
+        }
+        .jump {
+            animation: bounce 0.3s ease;
+        }
+
+        button:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
         }
     </style>
 </head>
 <body>
-<div class="container">
-    <!-- Encabezado copa -->
-    <div class="title-section">
-        <h1>⚽ Sorteo Oficial ⚽</h1>
-        <p>MUNDIALITO COMMAND CENTER</p>
-    </div>
-
-    <!-- 📅 NUEVA BARRA INFORMATIVA: FECHAS Y SEDE (sin afectar funcionalidad) -->
-    <div class="info-bar">
-        <span>📅 <strong>Fase de grupos:</strong> martes 24 al jueves 26</span>
-        <span>🗓️ <strong>Semifinales y final:</strong> viernes 27</span>
-        <span>📍 <strong>La nave de coches</strong></span>
-    </div>
-
-    <!-- Ruleta / tragamonedas -->
-    <div class="roulette-panel card">
-        <div class="wheel-display">
-            <div id="spinning-name">⚡ GIRAR ⚡</div>
+<div class="game-container">
+    <div class="mario-stage">
+        <div class="top-bar">
+            <span>⭐ MONEDAS: <span id="coinCount">0</span></span>
+            <span>🔥 RACHA: <span id="streakCount">0</span></span>
+            <span>📦 PASO: <span id="stepCount">0</span>/<span id="totalSteps">0</span></span>
         </div>
-        <div class="button-group">
-            <button class="btn" id="spinBtn" autofocus>🎲 Girar / Sortear equipo</button>
-            <button class="btn btn-gold" id="generateMatchesBtn">📅 Generar partidos</button>
-            <button class="btn" id="resetBtn">⟲ Reiniciar sorteo</button>
+        <div class="mario-character" id="mario">
+            <span>🍄</span>
         </div>
-        <div class="counter" id="teamsLeftCounter">Equipos disponibles: 12</div>
-    </div>
-
-    <!-- Visualización de grupos -->
-    <div class="groups-section">
-        <h2 class="gold-text" style="font-size: 2rem; margin-bottom: 0.5rem;">🌟 GRUPOS DEL MUNDIALITO</h2>
-        <div class="groups-grid" id="groupsContainer">
-            <!-- se llena con JS -->
-        </div>
-    </div>
-
-    <!-- Calendario de partidos (fase de grupos) -->
-    <div class="matches-section">
-        <h2 class="gold-text" style="font-size: 2rem; margin-bottom: 0.5rem;">⏳ CALENDARIO - FASE DE GRUPOS</h2>
-        <div class="matches-grid" id="matchesContainer"></div>
-    </div>
-
-    <!-- Explicación fase final (estática con diseño de tarjetas) -->
-    <div class="knockout-section">
-        <div class="knockout-card">
-            <div class="emblem">🏆</div>
-            <h4>CLASIFICAN</h4>
-            <p><span class="gold-rule">1er lugar</span> de cada grupo</p>
-        </div>
-        <div class="knockout-card">
-            <div class="emblem">⚔️</div>
-            <h4>SEMIFINAL 1</h4>
-            <p>Ganador A vs <br> Ganador C</p>
-        </div>
-        <div class="knockout-card">
-            <div class="emblem">⚔️</div>
-            <h4>SEMIFINAL 2</h4>
-            <p>Ganador B vs <br> Ganador D</p>
-        </div>
-        <div class="knockout-card">
-            <div class="emblem">🏅</div>
-            <h4>GRAN FINAL</h4>
-            <p>Ganador S1 vs <br> Ganador S2</p>
-        </div>
-        <div class="knockout-card">
-            <div class="emblem">🥇</div>
-            <h4>¡EL CAMPEÓN</h4>
-            <p>se lo lleva todo!</p>
-        </div>
-    </div>
-
-    <!-- botón extra para compartir (copia resultados) -->
-    <div class="footer-share">
-        <button class="btn" id="copyResultsBtn">📋 Copiar resultados</button>
+        <div id="pathContainer" class="path"></div>
+        <button id="advanceBtn" class="advance-btn">➡️ AVANZAR ➡️</button>
+        <div id="questionModal" class="question-modal" style="display: none;"></div>
     </div>
 </div>
 
 <script>
-    (function() {
-        // ------------- LISTA ORIGINAL DE EQUIPOS -------------
-        const TEAMS = [
-            "JassBrina", "Maquinas de fuego", "Los Crepusculones", "Los Pumas de Pabe",
-            "Los Tempos", "Los Monkiki’s", "Ultimo", "NightRaid", "Las Chivas de Jalpa",
-            "Pilar Blanco FC", "Los viajeros FC", "Los pitufos de Lagos"
-        ];
-
-        // ------------- ESTADO GLOBAL -------------
-        let remainingTeams = [...TEAMS];
-        const groups = {
-            A: [],
-            B: [],
-            C: [],
-            D: []
-        };
-        let matches = [];          // array de objetos { group, team1, team2 }
-        let picksCount = 0;        // 0 a 11, controla asignación secuencial a grupos
-        let spinning = false;
-        let spinInterval = null;
-        let spinTimeout = null;
-
-        // ------------- REFERENCIAS DOM -------------
-        const spinningNameDiv = document.getElementById('spinning-name');
-        const spinBtn = document.getElementById('spinBtn');
-        const generateBtn = document.getElementById('generateMatchesBtn');
-        const resetBtn = document.getElementById('resetBtn');
-        const copyBtn = document.getElementById('copyResultsBtn');
-        const teamsLeftSpan = document.getElementById('teamsLeftCounter');
-        const groupsContainer = document.getElementById('groupsContainer');
-        const matchesContainer = document.getElementById('matchesContainer');
-
-        // ------------- FUNCIONES DE RENDERIZADO -------------
-        function renderGroups() {
-            let html = '';
-            const groupOrder = ['A', 'B', 'C', 'D'];
-            groupOrder.forEach(letter => {
-                const teamList = groups[letter].map(t => `<li>${t}</li>`).join('');
-                html += `
-                    <div class="group-card">
-                        <div class="group-title">GRUPO ${letter}</div>
-                        <ul class="team-list">
-                            ${teamList || '<li style="opacity:0.5;">— esperando —</li>'}
-                        </ul>
-                    </div>
-                `;
-            });
-            groupsContainer.innerHTML = html;
+    // ------------------- PREGUNTAS VERDADERO O FALSO (10) -------------------
+    const questions = [
+        {
+            text: "Si respondo que no entiendo mi compensación, me van a bajar el sueldo.",
+            correct: false,
+            explanation: "❌ FALSO. La pregunta busca saber si la empresa comunica con claridad tus beneficios (vales, bonos, sueldo). No tiene impacto en el monto de tu nómina."
+        },
+        {
+            text: "El anonimato está garantizado al 100% en esta plataforma.",
+            correct: true,
+            explanation: "✅ VERDADERO. Las encuestas de Perceptyx están diseñadas para que los líderes solo vean tendencias grupales, no respuestas individuales."
+        },
+        {
+            text: "Debo calificar alto a mi líder para que el equipo se vea bien.",
+            correct: false,
+            explanation: "❌ FALSO. El objetivo es la retroalimentación real. Si hay algo que mejorar en el liderazgo, la encuesta es la herramienta para detectarlo objetivamente."
+        },
+        {
+            text: "La 'Burocracia' se refiere a los protocolos de seguridad que debo seguir.",
+            correct: false,
+            explanation: "❌ FALSO. Se refiere a procesos lentos o innecesarios que no agregan valor y dificultan tu trabajo diario. La seguridad nunca se considera burocracia negativa."
+        },
+        {
+            text: "Si pongo un comentario escrito, nadie lo va a leer.",
+            correct: false,
+            explanation: "❌ FALSO. Los comentarios son analizados por temas (como Cultura o Mejora Continua) y son la base principal para crear planes de acción."
+        },
+        {
+            text: "La encuesta mide si puedo ser yo mismo/a en el trabajo (Autenticidad).",
+            correct: true,
+            explanation: "✅ VERDADERO. Se evalúa si sientes la libertad de expresar tu personalidad y opiniones sin miedo a ser juzgado."
+        },
+        {
+            text: "El 'Engagement' solo significa que estoy feliz en mi puesto.",
+            correct: false,
+            explanation: "❌ FALSO. Significa qué tan conectado te sientes con los objetivos de la empresa y qué tan motivado estás para contribuir a ellos."
+        },
+        {
+            text: "Si hay una baja calificación en 'Trato Justo', el sistema nos castiga.",
+            correct: false,
+            explanation: "❌ FALSO. Una baja calificación (como el actual -19 en trato justo) indica que la empresa debe revisar sus procesos de equidad, no que el equipo será sancionado."
+        },
+        {
+            text: "Responder la encuesta toma más de 30 minutos.",
+            correct: false,
+            explanation: "❌ FALSO. El tiempo promedio registrado es de 11 minutos y 33 segundos. Es un proceso ágil."
+        },
+        {
+            text: "Mi participación no cambia nada en la empresa.",
+            correct: false,
+            explanation: "❌ FALSO. La participación histórica ha sido del 100%, lo que da mucha fuerza a la voz del equipo para exigir mejoras en procesos y comunicación."
         }
+    ];
 
-        function renderMatches() {
-            if (!matches || matches.length === 0) {
-                matchesContainer.innerHTML = '<div style="grid-column:1/-1; text-align:center; padding:2rem; background:#2f1515; border-radius:3rem;">⚡ Genera los partidos para ver el calendario ⚡</div>';
-                return;
-            }
+    // Estados del juego
+    let currentStep = 0;           // 0 = antes de empezar, luego 1..10
+    let coins = 0;
+    let streak = 0;
+    let answered = false;          // si ya respondió la pregunta actual
+    let waitingForNext = false;    // esperando a que pulse "Siguiente" después de responder
+    let userResults = [];           // guarda si acertó (true/false) en cada pregunta
+    let gameFinished = false;
 
-            // agrupar por grupo
-            const matchesByGroup = { A: [], B: [], C: [] , D: [] };
-            matches.forEach(m => {
-                if (matchesByGroup[m.group]) matchesByGroup[m.group].push(m);
-            });
+    // Elementos DOM
+    const pathContainer = document.getElementById('pathContainer');
+    const advanceBtn = document.getElementById('advanceBtn');
+    const questionModal = document.getElementById('questionModal');
+    const coinSpan = document.getElementById('coinCount');
+    const streakSpan = document.getElementById('streakCount');
+    const stepCountSpan = document.getElementById('stepCount');
+    const totalStepsSpan = document.getElementById('totalSteps');
+    const mario = document.getElementById('mario');
 
-            let html = '';
-            for (let letter of ['A','B','C','D']) {
-                const groupMatches = matchesByGroup[letter] || [];
-                let matchesList = '';
-                if (groupMatches.length > 0) {
-                    groupMatches.forEach(m => {
-                        matchesList += `
-                            <div class="match-item">
-                                <span>${m.team1}</span>
-                                <span class="vs-badge">VS</span>
-                                <span>${m.team2}</span>
-                            </div>
-                        `;
-                    });
-                } else {
-                    matchesList = '<p style="opacity:0.6; text-align:center;">⏳ partidos por definir</p>';
-                }
+    totalStepsSpan.innerText = questions.length;
 
-                html += `
-                    <div class="group-matches">
-                        <h3>GRUPO ${letter}</h3>
-                        ${matchesList}
-                    </div>
-                `;
-            }
-            matchesContainer.innerHTML = html;
-        }
-
-        function updateTeamsCounter() {
-            teamsLeftSpan.innerText = `Equipos disponibles: ${remainingTeams.length}`;
-        }
-
-        // ------------- LÓGICA DE ASIGNACIÓN POR GRUPO -------------
-        function assignTeamToGroup(team) {
-            // determinar grupo según picksCount (0-2 => A, 3-5 => B, 6-8 => C, 9-11 => D)
-            if (picksCount < 3) groups.A.push(team);
-            else if (picksCount < 6) groups.B.push(team);
-            else if (picksCount < 9) groups.C.push(team);
-            else groups.D.push(team);
-            picksCount++;
-        }
-
-        // ------------- GENERAR PARTIDOS (round robin grupo de 3) -------------
-        function generateMatchesFromGroups() {
-            // sólo generar si los 4 grupos tienen 3 equipos
-            if (groups.A.length !== 3 || groups.B.length !== 3 || groups.C.length !== 3 || groups.D.length !== 3) {
-                alert("Aún no están todos los grupos completos (faltan " + (12 - picksCount) + " equipos).");
-                return false;
-            }
-
-            matches = [];
-            const groupLetters = ['A','B','C','D'];
-            groupLetters.forEach(letter => {
-                const groupTeams = groups[letter];
-                // round robin: 3 equipos -> 3 partidos (1v2, 1v3, 2v3)
-                matches.push({ group: letter, team1: groupTeams[0], team2: groupTeams[1] });
-                matches.push({ group: letter, team1: groupTeams[0], team2: groupTeams[2] });
-                matches.push({ group: letter, team1: groupTeams[1], team2: groupTeams[2] });
-            });
-            renderMatches();
-            return true;
-        }
-
-        // ------------- RESET COMPLETO -------------
-        function fullReset() {
-            // cancelar cualquier spin en curso
-            if (spinInterval) clearInterval(spinInterval);
-            if (spinTimeout) clearTimeout(spinTimeout);
-            spinning = false;
-            spinBtn.disabled = false;
-            spinningNameDiv.classList.remove('spinning-active');
-
-            remainingTeams = [...TEAMS];
-            groups.A = [];
-            groups.B = [];
-            groups.C = [];
-            groups.D = [];
-            matches = [];
-            picksCount = 0;
-
-            spinningNameDiv.innerText = '⚡ GIRAR ⚡';
-            renderGroups();
-            renderMatches();
-            updateTeamsCounter();
-        }
-
-        // ------------- SELECCIONAR EQUIPO ALEATORIO (sin eliminación) -------------
-        function getRandomRemainingTeam() {
-            if (remainingTeams.length === 0) return null;
-            const randomIndex = Math.floor(Math.random() * remainingTeams.length);
-            return remainingTeams[randomIndex];
-        }
-
-        // ------------- ACCIÓN DE GIRAR (SORTEO CON ANIMACIÓN) -------------
-        function startSpin() {
-            if (spinning) return;
-            if (remainingTeams.length === 0) {
-                alert("¡Ya se sortearon todos los equipos!");
-                return;
-            }
-
-            spinning = true;
-            spinBtn.disabled = true;
-            spinningNameDiv.classList.add('spinning-active');
-
-            // cambio rápido de nombres
-            spinInterval = setInterval(() => {
-                const randomTeam = getRandomRemainingTeam();
-                if (randomTeam) spinningNameDiv.innerText = randomTeam;
-            }, 80);
-
-            // duración aleatoria entre 800ms y 2000ms
-            const spinDuration = 800 + Math.floor(Math.random() * 1300);
-            spinTimeout = setTimeout(() => {
-                // detener intervalo
-                if (spinInterval) clearInterval(spinInterval);
-                spinInterval = null;
-                spinningNameDiv.classList.remove('spinning-active');
-
-                // elegir equipo final (aleatorio de los que quedan)
-                if (remainingTeams.length > 0) {
-                    const randomIndex = Math.floor(Math.random() * remainingTeams.length);
-                    const selectedTeam = remainingTeams[randomIndex];
-
-                    // eliminar de remainingTeams
-                    remainingTeams.splice(randomIndex, 1);
-                    // asignar a grupo
-                    assignTeamToGroup(selectedTeam);
-                    // mostrar el seleccionado
-                    spinningNameDiv.innerText = selectedTeam;
-
-                    // refrescar grupos y contador
-                    renderGroups();
-                    updateTeamsCounter();
-
-                    // si ya no quedan equipos, deshabilitar botón
-                    if (remainingTeams.length === 0) {
-                        spinBtn.disabled = true;
-                    } else {
-                        spinBtn.disabled = false;
-                    }
-                } else {
-                    spinningNameDiv.innerText = '¡COMPLETO!';
-                    spinBtn.disabled = true;
-                }
-
-                spinning = false;
-                // reactivar botón (si quedan equipos)
-                if (remainingTeams.length > 0) {
-                    spinBtn.disabled = false;
-                }
-
-                // limpiar timeout
-                if (spinTimeout) clearTimeout(spinTimeout);
-                spinTimeout = null;
-            }, spinDuration);
-        }
-
-        // ------------- COPIAR RESULTADOS AL PORTAPAPELES -------------
-        function copyResultsToClipboard() {
-            let text = '🌟 MUNDIALITO COMMAND CENTER - RESULTADOS DEL SORTEO 🌟\n\n';
-            text += '📅 Fase de grupos: martes 24 al jueves 26\n';
-            text += '🗓️ Semifinales y final: viernes 27\n';
-            text += '📍 Sede: La nave de coches\n\n';
-
-            // grupos
-            for (let letter of ['A','B','C','D']) {
-                text += `GRUPO ${letter}: ${groups[letter].join(' · ') || 'vacío'}\n`;
-            }
-            text += '\n📅 PARTIDOS DE GRUPO:\n';
-            if (matches.length === 0) {
-                text += 'Todavía no se generaron los partidos.\n';
+    // Construir el camino con bloques estilo Mario
+    function buildPath() {
+        pathContainer.innerHTML = '';
+        for (let i = 0; i < questions.length; i++) {
+            const block = document.createElement('div');
+            block.classList.add('step-block');
+            if (i < currentStep) {
+                block.classList.add('completed');
+                block.innerHTML = '⭐';
+            } else if (i === currentStep) {
+                block.classList.add('active');
+                block.innerHTML = '❓';
             } else {
-                matches.forEach(m => {
-                    text += `Grupo ${m.group}: ${m.team1} VS ${m.team2}\n`;
-                });
+                block.innerHTML = '?';
             }
+            pathContainer.appendChild(block);
+        }
+    }
 
-            text += '\n⚔️ FASE FINAL:\n';
-            text += 'Clasifica 1er lugar de cada grupo.\n';
-            text += 'Semifinal 1: Ganador A vs Ganador C\n';
-            text += 'Semifinal 2: Ganador B vs Ganador D\n';
-            text += 'Gran Final: Ganador S1 vs Ganador S2\n';
-            text += '¡EL CAMPEÓN SE LO LLEVA TODO!';
+    function updateStatsUI() {
+        coinSpan.innerText = coins;
+        streakSpan.innerText = streak;
+        stepCountSpan.innerText = currentStep;
+        buildPath();
+    }
 
-            navigator.clipboard.writeText(text).then(() => {
-                alert('✅ Resultados copiados al portapapeles');
-            }).catch(() => {
-                alert('❌ No se pudo copiar, hazlo manualmente');
-            });
+    // Mostrar pregunta actual
+    function showQuestion() {
+        if (gameFinished) return;
+        if (currentStep >= questions.length) {
+            endGame();
+            return;
         }
 
-        // ------------- EVENT LISTENERS -------------
-        spinBtn.addEventListener('click', startSpin);
+        const q = questions[currentStep];
+        const alreadyAnswered = (userResults[currentStep] !== undefined);
 
-        generateBtn.addEventListener('click', () => {
-            generateMatchesFromGroups();
+        let optionsHtml = `
+            <div class="options">
+                <button class="opt-btn" data-value="true">✅ Verdadero</button>
+                <button class="opt-btn" data-value="false">❌ Falso</button>
+            </div>
+        `;
+
+        let feedbackHtml = `<div id="feedbackArea" class="feedback">⭐ Elige una respuesta para ganar monedas y seguir avanzando.</div>`;
+
+        questionModal.innerHTML = `
+            <div class="question-text">🔍 ${q.text}</div>
+            ${optionsHtml}
+            ${feedbackHtml}
+            <button id="nextQuestionBtn" class="next-btn" disabled>➡️ SIGUIENTE AVANCE</button>
+        `;
+        questionModal.style.display = 'block';
+
+        // Si ya había respondido (por reinicio no debería, pero por si acaso)
+        if (alreadyAnswered) {
+            const isCorrect = userResults[currentStep];
+            const correctText = q.correct ? "Verdadero" : "Falso";
+            const userChoice = isCorrect ? (q.correct ? "Verdadero" : "Falso") : (q.correct ? "Falso" : "Verdadero");
+            const emoji = isCorrect ? "✅" : "❌";
+            document.getElementById('feedbackArea').innerHTML = `
+                <strong>${emoji} ${isCorrect ? "¡Correcto!" : "Incorrecto"}</strong><br>
+                Tu respuesta: ${userChoice}<br>
+                Respuesta correcta: ${correctText}<br>
+                ${q.explanation}
+            `;
+            // deshabilitar opciones
+            document.querySelectorAll('.opt-btn').forEach(btn => btn.disabled = true);
+            document.getElementById('nextQuestionBtn').disabled = false;
+            answered = true;
+        }
+
+        // Eventos de respuesta
+        const optBtns = document.querySelectorAll('.opt-btn');
+        optBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                if (answered || gameFinished) return;
+                const selected = btn.getAttribute('data-value') === 'true';
+                const isCorrect = (selected === q.correct);
+                // actualizar monedas y racha
+                if (isCorrect) {
+                    coins++;
+                    streak++;
+                    mario.classList.add('jump');
+                    setTimeout(() => mario.classList.remove('jump'), 300);
+                } else {
+                    streak = 0;
+                }
+                userResults[currentStep] = isCorrect;
+                updateStatsUI();
+
+                const correctText = q.correct ? "Verdadero" : "Falso";
+                const userChoice = selected ? "Verdadero" : "Falso";
+                const emoji = isCorrect ? "✅" : "❌";
+                const feedbackDiv = document.getElementById('feedbackArea');
+                feedbackDiv.innerHTML = `
+                    <strong>${emoji} ${isCorrect ? "¡Correcto!" : "Incorrecto"}</strong><br>
+                    Tu respuesta: <strong>${userChoice}</strong><br>
+                    Respuesta correcta: <strong>${correctText}</strong><br>
+                    ${q.explanation}
+                `;
+
+                answered = true;
+                // deshabilitar opciones
+                optBtns.forEach(b => b.disabled = true);
+                // habilitar botón siguiente
+                document.getElementById('nextQuestionBtn').disabled = false;
+            });
         });
 
-        resetBtn.addEventListener('click', fullReset);
+        const nextModalBtn = document.getElementById('nextQuestionBtn');
+        nextModalBtn.addEventListener('click', () => {
+            if (!answered) return;
+            questionModal.style.display = 'none';
+            currentStep++;
+            answered = false;
+            waitingForNext = false;
+            updateStatsUI();
+            if (currentStep < questions.length) {
+                advanceBtn.disabled = false;
+                advanceBtn.innerText = '➡️ AVANZAR ➡️';
+            } else {
+                endGame();
+            }
+        });
+    }
 
-        copyBtn.addEventListener('click', copyResultsToClipboard);
+    function endGame() {
+        gameFinished = true;
+        const totalCorrect = userResults.filter(r => r === true).length;
+        const percentage = Math.round((totalCorrect / questions.length) * 100);
+        let message = "";
+        if (percentage >= 90) message = "🏆 ¡SUPER MARIO SABIO! Conoces todos los mitos. ¡El faro brilla con fuerza!";
+        else if (percentage >= 70) message = "⭐ ¡BUEN TRABAJO! Casi un experto. Repasa los detalles para dominarlos.";
+        else message = "🍄 ¡Ánimo! Cada pregunta te enseña algo nuevo. ¡Juega de nuevo para mejorar!";
 
-        // ------------- INICIALIZAR VISTA -------------
-        fullReset(); // de paso renderiza todo limpio
+        let resumen = `<div style="background:#fff0cf; border-radius:2rem; padding:1.5rem; text-align:center;">`;
+        resumen += `<div style="font-size:3rem;">🏁</div>`;
+        resumen += `<h2>¡Aventura completada!</h2>`;
+        resumen += `<div style="font-size:2rem;">⭐ ${totalCorrect} / ${questions.length}</div>`;
+        resumen += `<div>🎯 Precisión: ${percentage}%</div>`;
+        resumen += `<p>${message}</p>`;
+        resumen += `<button id="restartGameBtn" style="background:#c96f1e; border:none; padding:0.7rem; border-radius:2rem; font-weight:bold; cursor:pointer;">🔄 JUGAR DE NUEVO</button>`;
+        resumen += `<div style="margin-top:1rem; font-size:0.7rem;">📊 Datos reales de la encuesta: Participación 100% · Engagement 91% · ¡Tu voz importa!</div>`;
+        resumen += `</div>`;
 
-        // adicional: si se intenta generar partidos sin grupos llenos, el propio generateMatchesFromGroups alerta
-        // también bloqueamos botón girar al final
-    })();
+        questionModal.innerHTML = resumen;
+        questionModal.style.display = 'block';
+        advanceBtn.disabled = true;
+
+        const restartBtn = document.getElementById('restartGameBtn');
+        if (restartBtn) {
+            restartBtn.addEventListener('click', () => location.reload());
+        }
+    }
+
+    // Evento del botón avanzar (inicia pregunta)
+    advanceBtn.addEventListener('click', () => {
+        if (waitingForNext) return;
+        if (gameFinished) return;
+        if (currentStep >= questions.length) {
+            endGame();
+            return;
+        }
+        if (!answered && questionModal.style.display !== 'block') {
+            // mostrar pregunta
+            waitingForNext = true;
+            advanceBtn.disabled = true;
+            showQuestion();
+        }
+    });
+
+    // Inicializar
+    function init() {
+        currentStep = 0;
+        coins = 0;
+        streak = 0;
+        answered = false;
+        waitingForNext = false;
+        userResults = [];
+        gameFinished = false;
+        updateStatsUI();
+        advanceBtn.disabled = false;
+        questionModal.style.display = 'none';
+    }
+    init();
 </script>
 </body>
 </html>
