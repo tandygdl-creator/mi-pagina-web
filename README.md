@@ -259,17 +259,17 @@
         {
             text: "Si hay una baja calificación en 'Trato Justo', el sistema nos castiga.",
             correct: false,
-            explanation: "❌ FALSO. Una baja calificación (como el actual -19 en trato justo) indica que la empresa debe revisar sus procesos de equidad, no que el equipo será sancionado."
+            explanation: "❌ FALSO. Una baja calificación indica que la empresa debe revisar sus procesos de equidad, no que el equipo será sancionado."
         },
         {
-            text: "Responder la encuesta toma más de 30 minutos.",
+            text: "El tiempo limite de la encuesta es de media hora.",
             correct: false,
-            explanation: "❌ FALSO. El tiempo promedio registrado es de 11 minutos y 33 segundos. Es un proceso ágil."
+            explanation: "❌ FALSO. Puedes tomarte todo el tiempo necesario, pues se necesita reflexionar para contestar de la manera mas objetiva posible"
         },
         {
             text: "Mi participación no cambia nada en la empresa.",
             correct: false,
-            explanation: "❌ FALSO. La participación histórica ha sido del 100%, lo que da mucha fuerza a la voz del equipo para exigir mejoras en procesos y comunicación."
+            explanation: "❌ FALSO. Tú participación es indispensable, lo que da mucha fuerza a la voz del equipo para exigir mejoras en procesos y comunicación."
         }
     ];
 
